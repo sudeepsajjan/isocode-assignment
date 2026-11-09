@@ -55,3 +55,4 @@ INSERT INTO "Enquiry" ("id", "packageId", "sourceChannel", "customerName", "cust
 INSERT INTO "ActivityLog" ("id", "userRole", "userName", "action", "details", "timestamp") VALUES
 ('act_1', 'ADMIN', 'Rajan (Founder & MD)', 'PACKAGE_PUBLISHED', 'Published PKG-KL-07 Munnar, Thekkady and Alleppey houseboat', CURRENT_TIMESTAMP),
 ('act_2', 'SYSTEM', 'D1 Cloud Engine', 'DATABASE_INITIALIZED', 'Cloudflare D1 APAC database initialized with zero-cost tier', CURRENT_TIMESTAMP);
+
