@@ -6,3 +6,4 @@ compatibility_flags = ["nodejs_compat"]
 binding = "DB"
 database_name = "company-a-db"
 database_id = "7e02fda0-844c-4277-81ec-451506597200"
+
