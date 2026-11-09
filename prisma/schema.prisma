@@ -1,0 +1,121 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  role      String   // "ADMIN" | "CONSULTANT" | "CONTENT"
+  createdAt DateTime @default(now())
+}
+
+model Package {
+  id              String           @id // e.g. "PKG-KL-07"
+  slug            String           @unique
+  title           String
+  durationDays    Int
+  hotelStandard   String           // e.g. "4 star"
+  destinations    String           // JSON string array e.g. ["Munnar", "Thekkady", "Alleppey"]
+  heroImage       String
+  galleryImages   String           // JSON string array
+  status          String           @default("DRAFT") // "DRAFT" | "PUBLISHED" | "ARCHIVED"
+  
+  activeVersionId String?
+  versions        PackageVersion[] @relation("AllVersions")
+  seasonalPrices  SeasonalPrice[]
+  enquiries       Enquiry[]
+  quotes          Quote[]
+  
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
+model PackageVersion {
+  id             String   @id @default(cuid())
+  packageId      String
+  package        Package  @relation("AllVersions", fields: [packageId], references: [id], onDelete: Cascade)
+  versionNumber  Int
+  title          String
+  durationDays   Int
+  hotelStandard  String
+  destinations   String
+  itineraryJson  String   // JSON string: array of { day: number, title: string, description: string }
+  inclusionsJson String   // JSON string: { inclusions: string[], exclusions: string[] }
+  changeSummary  String?  // e.g. "Updated Peak season price to ₹32,500"
+  authorRole     String
+  authorName     String
+  createdAt      DateTime @default(now())
+}
+
+model SeasonalPrice {
+  id          String   @id @default(cuid())
+  packageId   String
+  package     Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  seasonName  String   // "Peak (Oct-Mar)", "Monsoon (Jun-Sep)", "All year"
+  startMonth  Int      // 1 - 12
+  endMonth    Int      // 1 - 12
+  priceInr    Int      // Per person, twin sharing
+  taxIncluded Boolean  @default(true)
+}
+
+model Enquiry {
+  id                 String    @id @default(cuid())
+  packageId          String?
+  package            Package?  @relation(fields: [packageId], references: [id])
+  sourceChannel      String    @default("WEB_FORM") // "WEB_FORM" | "EMAIL" | "WHATSAPP" | "PHONE" | "CHAT"
+  customerName       String
+  customerEmail      String?
+  customerPhone      String
+  rawMessage         String
+  status             String    @default("NEW") // "NEW" | "QUOTED" | "BOOKED" | "LOST"
+  assigneeName       String?
+  
+  // AI Extracted parameters (Consultant can adjust directly)
+  extractedDest      String?
+  extractedDates     String?
+  extractedAdults    Int?
+  extractedKids      Int?
+  extractedBudget    Int?
+  extractedMustHaves String?
+  suggestedPackageIds String?  // JSON array of matched package IDs
+  draftReplyText     String?
+  
+  // DPDP Act 2023 Compliance
+  dpdpConsentGiven   Boolean   @default(false)
+  dpdpConsentAt      DateTime?
+  dpdpConsentIp      String?
+
+  firstRepliedAt     DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  quotes             Quote[]
+}
+
+model Quote {
+  id            String   @id @default(cuid())
+  enquiryId     String
+  enquiry       Enquiry  @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  packageId     String
+  package       Package  @relation(fields: [packageId], references: [id])
+  priceSnapshot Int      // Frozen total INR price calculated from price table
+  summaryJson   String   // Snapshot of itinerary & quote items
+  pdfUrl        String?
+  status        String   @default("SENT") // "DRAFT" | "SENT" | "ACCEPTED"
+  sentAt        DateTime @default(now())
+}
+
+model ActivityLog {
+  id         String   @id @default(cuid())
+  userRole   String
+  userName   String
+  action     String   // "PRICE_UPDATE" | "ROLLBACK" | "QUOTE_SENT" | "STATUS_CHANGE" | "PACKAGE_CREATED"
+  details    String
+  timestamp  DateTime @default(now())
+}
+
