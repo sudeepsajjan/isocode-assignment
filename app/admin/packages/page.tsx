@@ -46,8 +46,8 @@ export default async function AdminPackagesPage() {
 
       <div className="rounded-xl border border-zinc-200 bg-white overflow-hidden shadow-sm">
         <div className="divide-y divide-zinc-200">
-          {packages.map((pkg) => {
-            const activeVer = pkg.versions[0];
+          {packages.map((pkg: any) => {
+            const activeVer = pkg.versions?.[0];
             const destinations: string[] = JSON.parse(pkg.destinations || "[]");
 
             return (
@@ -94,7 +94,7 @@ export default async function AdminPackagesPage() {
                     </p>
 
                     <div className="mt-2 flex flex-wrap gap-3 text-xs text-zinc-600">
-                      {pkg.seasonalPrices.map((sp) => (
+                      {pkg.seasonalPrices?.map((sp: any) => (
                         <span key={sp.id} className="rounded bg-zinc-100 px-2 py-0.5">
                           {sp.seasonName}: <strong>₹{sp.priceInr.toLocaleString("en-IN")}</strong>
                         </span>

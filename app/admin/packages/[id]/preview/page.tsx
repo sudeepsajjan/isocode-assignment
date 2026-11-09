@@ -12,7 +12,7 @@ export default async function PackagePreviewPage({
 }: {
   params: { id: string };
 }) {
-  const pkg = await db.package.findUnique({
+  const pkg: any = await db.package.findUnique({
     where: { id: params.id },
     include: {
       seasonalPrices: {
@@ -91,7 +91,7 @@ export default async function PackagePreviewPage({
               Verified Seasonal Rates
             </h3>
             <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {pkg.seasonalPrices.map((sp) => (
+              {pkg.seasonalPrices?.map((sp: any) => (
                 <div key={sp.id} className="rounded-lg border border-zinc-200 p-4">
                   <p className="text-xs text-zinc-500 font-medium">{sp.seasonName}</p>
                   <p className="mt-1 text-lg font-semibold text-zinc-950">

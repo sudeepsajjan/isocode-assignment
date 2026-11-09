@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/sudeepsajjan/isocode-assignment#readme",
   "dependencies": {
+    "@prisma/adapter-d1": "^5.22.0",
     "@prisma/client": "^5.22.0",
     "clsx": "^2.1.1",
     "lucide-react": "^1.70.0",

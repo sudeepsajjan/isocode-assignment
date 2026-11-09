@@ -80,7 +80,7 @@ export async function extractAndSuggestEnquiry(message: string): Promise<Extract
     include: { seasonalPrices: true },
   });
 
-  const matchingPackages = publishedPackages.filter((pkg) => {
+  const matchingPackages = publishedPackages.filter((pkg: any) => {
     // If houseboat is a must, check if title or destinations include houseboat/alleppey
     if (mustHavesList.includes("Houseboat")) {
       const matchHb = pkg.title.toLowerCase().includes("houseboat") || pkg.destinations.toLowerCase().includes("alleppey");
@@ -90,7 +90,7 @@ export async function extractAndSuggestEnquiry(message: string): Promise<Extract
   });
 
   const selectedPackages = matchingPackages.length > 0 ? matchingPackages.slice(0, 3) : publishedPackages.slice(0, 2);
-  const suggestedIds = selectedPackages.map((p) => p.id);
+  const suggestedIds = selectedPackages.map((p: any) => p.id);
 
   // 8. Generate Draft Reply with DB-verified pricing (AI NEVER invents prices)
   const primaryPkg = selectedPackages[0];
@@ -99,7 +99,7 @@ export async function extractAndSuggestEnquiry(message: string): Promise<Extract
   if (primaryPkg) {
     // Determine season from dates
     const isPeak = dates.toLowerCase().includes("dec") || dates.toLowerCase().includes("nov") || dates.toLowerCase().includes("jan") || dates.toLowerCase().includes("oct");
-    const seasonPrice = primaryPkg.seasonalPrices.find((sp) =>
+    const seasonPrice = primaryPkg.seasonalPrices?.find((sp: any) =>
       isPeak ? sp.seasonName.toLowerCase().includes("peak") : sp.seasonName.toLowerCase().includes("monsoon")
     ) || primaryPkg.seasonalPrices[0];
 

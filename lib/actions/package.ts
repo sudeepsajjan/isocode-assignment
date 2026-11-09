@@ -24,7 +24,7 @@ export async function updateSeasonalPrices(
   }
 
   // Transactionally update seasonal prices
-  await db.$transaction(async (tx) => {
+  await db.$transaction(async (tx: any) => {
     // Delete existing prices for package
     await tx.seasonalPrice.deleteMany({
       where: { packageId },

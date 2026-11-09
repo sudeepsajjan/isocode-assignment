@@ -13,7 +13,7 @@ export default async function AdminPackageDetailPage({
 }) {
   const user = await getCurrentUser();
 
-  const pkg = await db.package.findUnique({
+  const pkg: any = await db.package.findUnique({
     where: { id: params.id },
     include: {
       seasonalPrices: true,

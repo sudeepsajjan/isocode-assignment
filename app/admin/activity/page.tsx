@@ -23,7 +23,7 @@ export default async function ActivityLogPage() {
 
       <div className="rounded-xl border border-zinc-200 bg-white overflow-hidden shadow-sm">
         <div className="divide-y divide-zinc-200">
-          {logs.map((log) => {
+          {logs.map((log: any) => {
             const time = new Date(log.timestamp).toLocaleString();
             return (
               <div key={log.id} className="p-4 flex items-center justify-between gap-4 text-xs">

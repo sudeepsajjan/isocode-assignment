@@ -42,7 +42,7 @@ export default async function AdminInboxPage() {
           <div className="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-zinc-600 shadow-sm">
             Awaiting Reply:{" "}
             <span className="font-semibold text-amber-600">
-              {enquiries.filter((e) => e.status === "NEW").length}
+              {enquiries.filter((e: any) => e.status === "NEW").length}
             </span>
           </div>
         </div>

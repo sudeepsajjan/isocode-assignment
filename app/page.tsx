@@ -59,8 +59,8 @@ export default async function HomePage({
         </div>
 
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {publishedPackages.map((pkg) => {
-            const minPrice = pkg.seasonalPrices[0]?.priceInr;
+          {publishedPackages.map((pkg: any) => {
+            const minPrice = pkg.seasonalPrices?.[0]?.priceInr;
             const destinations: string[] = JSON.parse(pkg.destinations || "[]");
 
             return (

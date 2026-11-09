@@ -14,7 +14,7 @@ export default async function PackageDetailPage({
 }: {
   params: { slug: string };
 }) {
-  const pkg = await db.package.findUnique({
+  const pkg: any = await db.package.findUnique({
     where: { slug: params.slug },
     include: {
       seasonalPrices: {
@@ -152,7 +152,7 @@ export default async function PackageDetailPage({
             </p>
 
             <div className="mt-4 divide-y divide-zinc-100 border-t border-zinc-100">
-              {pkg.seasonalPrices.map((sp) => (
+              {pkg.seasonalPrices?.map((sp: any) => (
                 <div key={sp.id} className="flex items-center justify-between py-3">
                   <div>
                     <p className="text-sm font-medium text-zinc-900">{sp.seasonName}</p>
