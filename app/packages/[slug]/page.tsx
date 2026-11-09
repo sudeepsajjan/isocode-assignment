@@ -7,6 +7,7 @@ import { EnquiryDrawer } from "@/components/EnquiryDrawer";
 import { Check, Clock, MapPin, Building, ShieldCheck } from "lucide-react";
 
 export const revalidate = 0;
+export const runtime = "edge";
 
 export default async function PackageDetailPage({
   params,

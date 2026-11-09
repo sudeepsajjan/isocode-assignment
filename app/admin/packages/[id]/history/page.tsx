@@ -4,6 +4,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { VersionHistoryView } from "@/components/VersionHistoryView";
 
 export const revalidate = 0;
+export const runtime = "edge";
 
 export default async function PackageHistoryPage({
   params,

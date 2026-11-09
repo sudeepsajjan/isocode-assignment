@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { Clock, Shield, User, Sparkles } from "lucide-react";
 
 export const revalidate = 0;
+export const runtime = "edge";
 
 export default async function ActivityLogPage() {
   const logs = await db.activityLog.findMany({

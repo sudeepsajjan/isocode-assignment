@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { PublicNav } from "@/components/PublicNav";
 
 export const revalidate = 0; // Fresh server-rendered data
+export const runtime = "edge";
 
 export default async function HomePage({
   searchParams,

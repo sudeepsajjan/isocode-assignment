@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { ArrowLeft, Check, ShieldAlert, MapPin } from "lucide-react";
 
 export const revalidate = 0;
+export const runtime = "edge";
 
 export default async function PackagePreviewPage({
   params,

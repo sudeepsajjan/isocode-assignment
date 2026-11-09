@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { Plus, History, Eye, Edit3 } from "lucide-react";
 
 export const revalidate = 0;
+export const runtime = "edge";
 
 export default async function AdminPackagesPage() {
   const user = await getCurrentUser();

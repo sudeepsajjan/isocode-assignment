@@ -4,6 +4,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { PackageEditor } from "@/components/PackageEditor";
 
 export const revalidate = 0;
+export const runtime = "edge";
 
 export default async function AdminPackageDetailPage({
   params,

@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { InboxView } from "@/components/InboxView";
 
 export const revalidate = 0;
+export const runtime = "edge";
 
 export default async function AdminInboxPage() {
   const user = await getCurrentUser();
